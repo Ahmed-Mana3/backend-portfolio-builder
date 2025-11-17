@@ -8,8 +8,10 @@ class Theme(models.Model):
     is_active = models.BooleanField(default=True)
     usage_count = models.IntegerField(default=0)
 
+    class Meta:
+        ordering = ['-usage_count', 'name']
+
     def __str__(self):
         return self.name
-
 
 
