@@ -3,7 +3,7 @@ from builder.models import Portfolio
 from django.utils import timezone
 
 class PublishedSite(models.Model):
-    portfolio = models.OneToOneField(Portfolio, on_delete=models.CASCADE)
+    portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE)
     url = models.CharField(max_length=200, unique=True, blank=True) 
     is_live = models.BooleanField(default=False)
     published_at = models.DateTimeField(auto_now_add=True)
