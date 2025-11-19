@@ -1,4 +1,7 @@
 from django.db import models
+from django.conf import settings
+
+user = settings.AUTH_USER_MODEL
 
 class Theme(models.Model):
     name = models.CharField(max_length=255)
@@ -13,5 +16,13 @@ class Theme(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(user, on_delete=models.CASCADE)
+    selected_theme = models.ForeignKey(Theme, on_delete=models.SET_NULL,null=True, blank=True, related_name="users_selected")
+
+    def __str__(self):
+        return self.user.username
 
 

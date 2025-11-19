@@ -7,7 +7,7 @@ class UserRegisterationSerializer(serializers.ModelSerializer):
     class Meta:
         model = user_model
 
-        fields = ["id", "username", "email", "first_name", "last_name", "phone", "image", "password"]
+        fields = ["id", "username", "email", "first_name", "last_name", "phone", "password"]
 
         extra_kwargs = {
             "password" : {"write_only":True}
@@ -17,4 +17,16 @@ class UserRegisterationSerializer(serializers.ModelSerializer):
         new_user = user_model.objects.create_user(**validated_data)
         return new_user
 
+class UpdateUserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = user_model
+
+        fields = ["id", "username", "email", "first_name", "last_name", "phone"]
+
+
+class UserImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = user_model
+
+        fields = ["id", "image"]
 
