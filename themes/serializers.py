@@ -17,7 +17,7 @@ class UpdateUserProfileThemeSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = ["selected_theme"]
-    
+
 
 class MyThemeSerializer(serializers.ModelSerializer):
     class Meta:

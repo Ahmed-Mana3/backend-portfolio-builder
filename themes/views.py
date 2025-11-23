@@ -58,12 +58,28 @@ def update_my_theme(request, pk):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def see_my_theme(request):
+    try:
+        profile = UserProfile.objects.get(user=request.user)
+
+        if profile.selected_theme is None:
+            return Response({"message": "No theme selected"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = ThemeSerialzer(profile.selected_theme)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    except UserProfile.DoesNotExist:
+        return Response({"message": "User profile not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(["DELETE"])
+@permission_classes([IsAuthenticated])
+def delete_my_theme(request):
     user = request.user.id
     try:
-        selected_theme = Theme.objects.get(user=user) 
-        serializer = UpdateUserProfileThemeSerializer(selected_theme)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-    except selected_theme.DoesNotExist:
-        return Response({"message":"Theme doesn't exist"}, status=status.HTTP_404_NOT_FOUND)
+        user_profile = UserProfile.objects.get(user=user) 
+        user_profile.delete()
+        return Response({"message":"Theme deleted successfuly"}, status=status.HTTP_204_NO_CONTENT)
+    except Exception:
+        return Response({"message":"Something went wrong"}, status=status.HTTP_400_BAD_REQUEST)
 
 

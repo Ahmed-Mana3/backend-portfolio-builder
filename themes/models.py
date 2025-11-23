@@ -21,7 +21,7 @@ class Theme(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(user, on_delete=models.CASCADE)
     selected_theme = models.ForeignKey(Theme, on_delete=models.SET_NULL,null=True, blank=True, related_name="users_selected")
-
+    created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.user.username
 
