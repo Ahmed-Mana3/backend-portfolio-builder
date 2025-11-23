@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('users.urls')),
     path('api/themes/', include('themes.urls')),
+    path('api/portfolio/', include('builder.urls')),
 ]
 
 
